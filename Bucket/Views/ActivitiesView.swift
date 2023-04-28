@@ -14,14 +14,32 @@ struct ActivitiesView: View {
             List {
                 // Experiences
                 Section(header: Text("Experiences")) {
+                    
+                    // Loop over the items
                     ForEach(demoBucketItems.filter { $0.typeOfActivity == .Experience }) { item in
+                        // Each individual line
+                        
                         VStack {
                             Image(photoPlaceholder)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: .infinity)
-                            Text(item.title)
+                            
+                            HStack {
+                                Text(item.title)
+                                    .font(.system(size: 26))
+                                    .fontWeight(.semibold)
+                                
+                                Spacer()
+                            }
+                            
+                            HStack {
+                                Text(item.location)
+                                Spacer()
+                            }
+                            
                         }
+                        // // // // // // // // //
                     }
                 }
                 

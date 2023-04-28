@@ -15,6 +15,7 @@
 		827DD9C329F8AB1D00BB3784 /* MyBucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C229F8AB1D00BB3784 /* MyBucketView.swift */; };
 		827DD9C629F8AB3A00BB3784 /* BucketItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C529F8AB3A00BB3784 /* BucketItems.swift */; };
 		827DD9C829F8AF5600BB3784 /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C729F8AF5600BB3784 /* ActivitiesView.swift */; };
+		827DD9CA29FC43CC00BB3784 /* BucketItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C929FC43CC00BB3784 /* BucketItemDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		827DD9C229F8AB1D00BB3784 /* MyBucketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBucketView.swift; sourceTree = "<group>"; };
 		827DD9C529F8AB3A00BB3784 /* BucketItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItems.swift; sourceTree = "<group>"; };
 		827DD9C729F8AF5600BB3784 /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
+		827DD9C929FC43CC00BB3784 /* BucketItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				827DD9C029F8A9AD00BB3784 /* MainView.swift */,
 				827DD9C229F8AB1D00BB3784 /* MyBucketView.swift */,
 				827DD9C729F8AF5600BB3784 /* ActivitiesView.swift */,
+				827DD9C929FC43CC00BB3784 /* BucketItemDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				827DD9CA29FC43CC00BB3784 /* BucketItemDetailView.swift in Sources */,
 				827DD9C329F8AB1D00BB3784 /* MyBucketView.swift in Sources */,
 				827DD9B429F8A61800BB3784 /* ContentView.swift in Sources */,
 				827DD9C129F8A9AD00BB3784 /* MainView.swift in Sources */,
