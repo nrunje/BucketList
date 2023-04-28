@@ -22,7 +22,7 @@ struct MainView: View {
                     Text("Activities")
                 }
             
-            Text("Third View")
+            ProfileView()
                 .tabItem {
                     Image(systemName: "person.circle")
                     Text("Profile")

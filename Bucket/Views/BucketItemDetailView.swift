@@ -45,7 +45,7 @@ struct BucketItemDetailView: View {
                 
                // Import map
                 MapView(searchText: $searchText)
-                    .frame(width: 300, height: 300)
+                    .frame(width: UIScreen.main.bounds.width, height: 300)
                 
                 Text("Personal notes:")
                     .font(.system(size: 20))
