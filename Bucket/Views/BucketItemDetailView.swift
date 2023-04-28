@@ -9,6 +9,9 @@ import SwiftUI
 import MapKit
 
 struct BucketItemDetailView: View {
+    
+    let item: BucketItem
+    
     @State private var searchText: String = "Austin"
     
     var body: some View {
@@ -19,19 +22,19 @@ struct BucketItemDetailView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
 
-                Text("Sample activity")
+                Text(item.title)
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                     .padding()
                 
                 HStack {
-                    Text("Austin, Texas")
+                    Text(item.location)
                         .font(.system(size: 20))
                         .fontWeight(.semibold)
                     
                     Spacer()
                     
-                    Text("July 4th, 2023")
+                    Text(item.date)
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -49,7 +52,7 @@ struct BucketItemDetailView: View {
                     .fontWeight(.semibold)
                     .padding(.leading)
                 
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                Text(item.note)
                     .padding([.leading, .horizontal])
             }
             .padding([.bottom], 200)
@@ -61,7 +64,7 @@ struct BucketItemDetailView: View {
 
 struct BucketItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BucketItemDetailView()
+        BucketItemDetailView(item: demoBucketItems[0])
     }
 }
 

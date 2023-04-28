@@ -19,25 +19,27 @@ struct ActivitiesView: View {
                     ForEach(demoBucketItems.filter { $0.typeOfActivity == .Experience }) { item in
                         // Each individual line
                         
-                        VStack {
-                            Image(photoPlaceholder)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: .infinity)
-                            
-                            HStack {
-                                Text(item.title)
-                                    .font(.system(size: 26))
-                                    .fontWeight(.semibold)
+                        NavigationLink(destination: BucketItemDetailView(item: item)) {
+                            VStack {
+                                Image(photoPlaceholder)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxWidth: .infinity)
                                 
-                                Spacer()
+                                HStack {
+                                    Text(item.title)
+                                        .font(.system(size: 26))
+                                        .fontWeight(.semibold)
+                                    
+                                    Spacer()
+                                }
+                                
+                                HStack {
+                                    Text(item.location)
+                                    Spacer()
+                                }
+                                
                             }
-                            
-                            HStack {
-                                Text(item.location)
-                                Spacer()
-                            }
-                            
                         }
                         // // // // // // // // //
                     }
