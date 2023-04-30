@@ -11,15 +11,15 @@ struct HomeView: View {
     var body: some View {
         ScrollView {
             Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(width: UIScreen.main.bounds.width, height: 200)
+                .fill(Color.blue.opacity(0.6))
+                .frame(width: UIScreen.main.bounds.width, height: 150)
+                .cornerRadius(10)
                 .edgesIgnoringSafeArea(.top)
-                
             
             Text("My BucketList")
-                .font(.largeTitle)
-                .fontWeight(.semibold)
-                .padding([.top], -100)
+                .font(.system(size: 36))
+                .fontWeight(.bold)
+                .padding(.top, -70)
             
             ForEach(Array(demoBucketItems.enumerated()), id: \.1) { index, item in
                 ItemCard(item: item)
@@ -87,6 +87,7 @@ struct ThreeDotsView: View {
                 .fill(Color.gray)
                 .frame(width: 8, height: 8)
         }
+        .padding([.top, .bottom], 10)
     }
 }
 
