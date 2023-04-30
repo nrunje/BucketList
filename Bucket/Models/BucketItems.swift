@@ -14,7 +14,25 @@ public enum ActivityType {
 
 let photoPlaceholder = "glacier"
 
-public class BucketItem: Identifiable {
+public class BucketItem: Identifiable, Hashable, Equatable {
+    public static func == (lhs: BucketItem, rhs: BucketItem) -> Bool {
+        return lhs.title == rhs.title &&
+            lhs.location == rhs.location &&
+            lhs.photo == rhs.photo &&
+            lhs.date == rhs.date &&
+            lhs.note == rhs.note &&
+            lhs.typeOfActivity == rhs.typeOfActivity
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+        hasher.combine(location)
+        hasher.combine(photo)
+        hasher.combine(date)
+        hasher.combine(note)
+        hasher.combine(typeOfActivity)
+    }
+    
     var title: String
     var location: String
     var photo: String
