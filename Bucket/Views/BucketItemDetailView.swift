@@ -11,7 +11,6 @@ import MapKit
 struct BucketItemDetailView: View {
     
     let item: BucketItem
-    
     @State private var searchText: String = "Austin"
     
     var body: some View {

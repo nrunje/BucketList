@@ -17,36 +17,91 @@ struct ActivitiesView: View {
                 .frame(width: UIScreen.main.bounds.width, height: 150)
                 .cornerRadius(10)
                 .edgesIgnoringSafeArea(.top)
-         
+            
             Text("Popular Activities")
                 .font(.system(size: 36))
                 .fontWeight(.bold)
                 .padding(.top, -70)
             
-            VStack(spacing: 0) {
-                ForEach(demoBucketItems.filter { $0.typeOfActivity == .Experience }) { item in
-                    BucketItemRow(item: item)
-                        .onTapGesture {
-                            selectedItem = item
-                        }
-                    
-                    if item != demoBucketItems.filter({ $0.typeOfActivity == .Experience }).last {
-                        Divider()
+            // Popular places
+            VStack(alignment: .leading) {
+                Text("Popular Destinations:")
+                    .font(.headline)
+                    .padding([.leading])
+                    .padding(.top, 5)
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        ExperienceCard(item: demoBucketItems[0])
+                        ExperienceCard(item: demoBucketItems[0])
+                        ExperienceCard(item: demoBucketItems[0])
                     }
+                    .padding([.bottom, .leading,. trailing])
+                    .padding(.top, 8)
                 }
             }
-            .background(Color.white)
-            .cornerRadius(20)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
+            .padding(.top, -10)
+            // ///////////////////////////
             
-            Spacer()
-        }
-        .sheet(item: $selectedItem) { item in
-            BucketItemDetailView(item: item)
+            // Popular places
+            VStack(alignment: .leading) {
+                Text("Popular Expereinces:")
+                    .font(.headline)
+                    .padding([.leading])
+                    .padding(.top, 5)
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        ExperienceCard(item: demoBucketItems[0])
+                        ExperienceCard(item: demoBucketItems[0])
+                        ExperienceCard(item: demoBucketItems[0])
+                    }
+                    .padding([.bottom, .leading,. trailing])
+                    .padding(.top, 8)
+                }
+            }
+            .padding(.top, -10)
+            // ///////////////////////////
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
+    }
+}
+
+struct ExperienceCard: View {
+    
+    // Variables
+    let item: BucketItem
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Image(photoPlaceholder)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 200)
+                .clipped()
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text(item.title)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                
+                HStack {
+                    Text(item.location)
+                        .foregroundColor(.secondary)
+                    
+                    Spacer()
+                    
+                    Text(item.date)
+                        .foregroundColor(.secondary)
+                }
+                
+            }
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 5)
     }
 }
 
