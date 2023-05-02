@@ -53,6 +53,25 @@ struct BucketItemDetailView: View {
                 
                 Text(item.note)
                     .padding([.leading, .horizontal])
+                
+                Group {
+                    Button(action: {
+                        myBucketList.append(item)
+                        
+                        print("My BucketList is: \(myBucketList)")
+                    }) {
+                        Text("Add to My BucketList")
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 24)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    }
+                }
+                .frame(width: UIScreen.main.bounds.width)
+//                .background(Color.red)
+                
             }
             .padding([.bottom], 200)
         }

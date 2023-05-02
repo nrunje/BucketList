@@ -40,6 +40,17 @@ public class BucketItem: Identifiable, Hashable, Equatable {
     var note: String
     var typeOfActivity: ActivityType
     
+    // id
+    // user_id
+    // name
+    // likes
+    // date
+    // notes
+    // photos
+    // categories
+    
+    
+    
     init(title: String, location: String, photo: String, date: String, note: String, typeOfActivity: ActivityType) {
         self.title = title
         self.location = location
@@ -49,6 +60,8 @@ public class BucketItem: Identifiable, Hashable, Equatable {
         self.typeOfActivity = typeOfActivity
     }
 }
+
+var myBucketList: [BucketItem] = []
 
 let demoBucketItems: [BucketItem] = [
     BucketItem(title: "Visit Paris", location: "Paris, France", photo: photoPlaceholder, date: "2023-06-01", note: "Stay in a cute Parisian apartment and eat lots of croissants!", typeOfActivity: .Location),

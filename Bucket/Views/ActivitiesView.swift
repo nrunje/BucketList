@@ -92,6 +92,9 @@ struct ActivitiesView: View {
                 .background(Color.blue.opacity(0.8))
             
         }
+        .sheet(item: $selectedItem) { item in
+            BucketItemDetailView(item: item)
+        }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
     }
