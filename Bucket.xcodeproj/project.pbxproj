@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		822F43252A017BFC00363F48 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F43242A017BFC00363F48 /* ProfileView.swift */; };
 		827DD9B229F8A61800BB3784 /* BucketApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9B129F8A61800BB3784 /* BucketApp.swift */; };
 		827DD9B429F8A61800BB3784 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9B329F8A61800BB3784 /* ContentView.swift */; };
 		827DD9B629F8A61900BB3784 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827DD9B529F8A61900BB3784 /* Assets.xcassets */; };
@@ -16,11 +17,11 @@
 		827DD9C629F8AB3A00BB3784 /* BucketItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C529F8AB3A00BB3784 /* BucketItems.swift */; };
 		827DD9C829F8AF5600BB3784 /* ActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C729F8AF5600BB3784 /* ActivitiesView.swift */; };
 		827DD9CA29FC43CC00BB3784 /* BucketItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9C929FC43CC00BB3784 /* BucketItemDetailView.swift */; };
-		827DD9CC29FC500900BB3784 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9CB29FC500900BB3784 /* ProfileView.swift */; };
 		827DD9CE29FC526100BB3784 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827DD9CD29FC526100BB3784 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		822F43242A017BFC00363F48 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		827DD9AE29F8A61800BB3784 /* Bucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827DD9B129F8A61800BB3784 /* BucketApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketApp.swift; sourceTree = "<group>"; };
 		827DD9B329F8A61800BB3784 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,7 +32,6 @@
 		827DD9C529F8AB3A00BB3784 /* BucketItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItems.swift; sourceTree = "<group>"; };
 		827DD9C729F8AF5600BB3784 /* ActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesView.swift; sourceTree = "<group>"; };
 		827DD9C929FC43CC00BB3784 /* BucketItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketItemDetailView.swift; sourceTree = "<group>"; };
-		827DD9CB29FC500900BB3784 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		827DD9CD29FC526100BB3784 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,8 +90,8 @@
 				827DD9C229F8AB1D00BB3784 /* MyBucketView.swift */,
 				827DD9C729F8AF5600BB3784 /* ActivitiesView.swift */,
 				827DD9C929FC43CC00BB3784 /* BucketItemDetailView.swift */,
-				827DD9CB29FC500900BB3784 /* ProfileView.swift */,
 				827DD9CD29FC526100BB3784 /* HomeView.swift */,
+				822F43242A017BFC00363F48 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -175,7 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				827DD9CE29FC526100BB3784 /* HomeView.swift in Sources */,
-				827DD9CC29FC500900BB3784 /* ProfileView.swift in Sources */,
+				822F43252A017BFC00363F48 /* ProfileView.swift in Sources */,
 				827DD9CA29FC43CC00BB3784 /* BucketItemDetailView.swift in Sources */,
 				827DD9C329F8AB1D00BB3784 /* MyBucketView.swift in Sources */,
 				827DD9B429F8A61800BB3784 /* ContentView.swift in Sources */,
