@@ -23,6 +23,13 @@ struct ActivitiesView: View {
                 .fontWeight(.bold)
                 .padding(.top, -70)
             
+            Text("Below are popular bucket list items. Click one to learn more. Or create your own!")
+                .italic()
+                .opacity(0.6)
+                .multilineTextAlignment(.center)
+                .padding([.trailing, .leading], 20)
+                .padding(.bottom, 10)
+            
             // Popular places
             VStack(alignment: .leading) {
                 Text("Popular Destinations:")
@@ -32,9 +39,16 @@ struct ActivitiesView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ExperienceCard(item: demoBucketItems[0])
-                        ExperienceCard(item: demoBucketItems[0])
-                        ExperienceCard(item: demoBucketItems[0])
+                        ForEach(demoBucketItems.filter { $0.typeOfActivity == .Experience }) { item in
+                            ExperienceCard(item: item)
+                                .onTapGesture {
+                                    selectedItem = item
+                                }
+                            
+                            if item != demoBucketItems.filter({ $0.typeOfActivity == .Experience }).last {
+                                Divider()
+                            }
+                        }
                     }
                     .padding([.bottom, .leading,. trailing])
                     .padding(.top, 8)
@@ -45,16 +59,23 @@ struct ActivitiesView: View {
             
             // Popular places
             VStack(alignment: .leading) {
-                Text("Popular Expereinces:")
+                Text("Popular Experiences:")
                     .font(.headline)
                     .padding([.leading])
                     .padding(.top, 5)
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ExperienceCard(item: demoBucketItems[0])
-                        ExperienceCard(item: demoBucketItems[0])
-                        ExperienceCard(item: demoBucketItems[0])
+                        ForEach(demoBucketItems.filter { $0.typeOfActivity == .Location }) { item in
+                            ExperienceCard(item: item)
+                                .onTapGesture {
+                                    selectedItem = item
+                                }
+                            
+                            if item != demoBucketItems.filter({ $0.typeOfActivity == .Location }).last {
+                                Divider()
+                            }
+                        }
                     }
                     .padding([.bottom, .leading,. trailing])
                     .padding(.top, 8)
@@ -62,6 +83,14 @@ struct ActivitiesView: View {
             }
             .padding(.top, -10)
             // ///////////////////////////
+            
+            Text("Click below to create your own!")
+                .padding([.leading, .trailing], 10)
+                .frame(width: UIScreen.main.bounds.width, height: 100)
+                .font(.headline)
+                .foregroundColor(Color.white)
+                .background(Color.blue.opacity(0.8))
+            
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
