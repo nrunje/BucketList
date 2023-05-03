@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ActivitiesView: View {
     @State private var selectedItem: BucketItem? = nil
+//    @State private var bucketItems = [BucketItem]()
     
     var body: some View {
         ScrollView {

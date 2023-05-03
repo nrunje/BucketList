@@ -30,6 +30,6 @@ class NetworkManager {
         task.resume()
     }
     
-    
+//    func signIn(completion: @escaping )
     
 }
