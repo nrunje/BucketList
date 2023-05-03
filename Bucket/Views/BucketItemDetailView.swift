@@ -21,7 +21,7 @@ struct BucketItemDetailView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
 
-                Text(item.title)
+                Text(item.name)
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                     .padding()
@@ -51,7 +51,7 @@ struct BucketItemDetailView: View {
                     .fontWeight(.semibold)
                     .padding(.leading)
                 
-                Text(item.note)
+                Text(item.notes)
                     .padding([.leading, .horizontal])
                 
                 Group {

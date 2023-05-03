@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var signedIn = true
+    @State private var signedIn = false
     
     var body: some View {
         Group {
-//            if signedIn {
+            if signedIn {
                 MainView()
-//            } else {
-//                SignInView()
-//            }
+            } else {
+                CredentialPage(isSignedIn: $signedIn)
+            }
         }
-        
+        .animation(.easeInOut(duration: 0.5), value: signedIn)
     }
 }
 

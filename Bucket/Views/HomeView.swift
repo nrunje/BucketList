@@ -22,12 +22,9 @@ struct HomeView: View {
                 .fontWeight(.bold)
                 .padding(.top, -70)
             
-            ForEach(Array(demoBucketItems.enumerated()), id: \.1) { index, item in
+            ForEach(demoBucketItems) { item in
                 ItemCard(item: item)
-                
-                if index != demoBucketItems.count - 1 {
-                    ThreeDotsView()
-                }
+                ThreeDotsView()
             }
             
         }
@@ -50,7 +47,7 @@ struct ItemCard: View {
                 .clipped()
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(item.title)
+                Text(item.name)
                     .font(.title2)
                     .fontWeight(.bold)
                 

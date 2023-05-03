@@ -18,7 +18,7 @@ struct ActivitiesView: View {
                 .cornerRadius(10)
                 .edgesIgnoringSafeArea(.top)
             
-            Text("Popular Activities")
+            Text("Discover")
                 .font(.system(size: 36))
                 .fontWeight(.bold)
                 .padding(.top, -70)
@@ -39,15 +39,8 @@ struct ActivitiesView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(demoBucketItems.filter { $0.typeOfActivity == .Experience }) { item in
+                        ForEach(demoBucketItems.filter { $0.is_experience == false }) { item in
                             ExperienceCard(item: item)
-                                .onTapGesture {
-                                    selectedItem = item
-                                }
-                            
-                            if item != demoBucketItems.filter({ $0.typeOfActivity == .Experience }).last {
-                                Divider()
-                            }
                         }
                     }
                     .padding([.bottom, .leading,. trailing])
@@ -66,15 +59,8 @@ struct ActivitiesView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(demoBucketItems.filter { $0.typeOfActivity == .Location }) { item in
+                        ForEach(demoBucketItems.filter { $0.is_experience == true }) { item in
                             ExperienceCard(item: item)
-                                .onTapGesture {
-                                    selectedItem = item
-                                }
-                            
-                            if item != demoBucketItems.filter({ $0.typeOfActivity == .Location }).last {
-                                Divider()
-                            }
                         }
                     }
                     .padding([.bottom, .leading,. trailing])
@@ -114,7 +100,7 @@ struct ExperienceCard: View {
                 .clipped()
             
             VStack(alignment: .leading, spacing: 8) {
-                Text(item.title)
+                Text(item.name)
                     .font(.title2)
                     .fontWeight(.bold)
                 
@@ -148,7 +134,7 @@ struct BucketItemRow: View {
                 .frame(maxWidth: .infinity)
             
             HStack {
-                Text(item.title)
+                Text(item.name)
                     .font(.system(size: 26))
                     .fontWeight(.semibold)
                 
