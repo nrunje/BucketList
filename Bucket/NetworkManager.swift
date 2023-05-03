@@ -11,7 +11,7 @@ class NetworkManager {
     static let shared = NetworkManager()
     
     func getAllBucketItems(completion: @escaping ([BucketItem]) -> Void) {
-        var url = URL(string: "http://34.85.150.149/items/")!
+        let url = URL(string: "http://34.85.150.149/items/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -19,9 +19,17 @@ class NetworkManager {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
+                    let response = try decoder.decode(BucketItemsResponse.self, from: data)
                     
+                    completion(response.bucketItems)
+                } catch (let error) {
+                    print(error.localizedDescription)
                 }
             }
         }
+        task.resume()
     }
+    
+    
+    
 }
