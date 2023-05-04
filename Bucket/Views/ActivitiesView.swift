@@ -84,9 +84,14 @@ struct ActivitiesView: View {
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
-        .onAppear (
-            
-        )
+        .onAppear {
+            NetworkManager.shared.getAllBucketItems { items in
+                DispatchQueue.main.async {
+                    bucketItems = items
+                    print("Items are: \(items)")
+                }
+            }
+        }
     }
     
     

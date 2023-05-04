@@ -26,7 +26,7 @@ struct BucketItem: Codable, Identifiable {
 }
 
 struct BucketItemsResponse: Codable {
-    var bucketItems: [BucketItem]
+    var items: [BucketItem]
 }
 
 var myBucketList: [BucketItem] = []

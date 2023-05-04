@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Session: Codable {
+struct SessionResponse: Codable {
     let session_token: String
     let session_expiration: String
     let update_token: String
@@ -29,27 +29,41 @@ class NetworkManager {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(BucketItemsResponse.self, from: data)
                     
-                    completion(response.bucketItems)
+                    completion(response.items)
                 } catch (let error) {
                     print(error.localizedDescription)
+                    print("This is where error is")
                 }
             }
         }
         task.resume()
     }
     
-    func signIn(completion: @escaping (String) -> Void) {
+    func signIn(email: String, password: String, completion: @escaping (SessionResponse) -> Void) {
         let url = URL(string: "http://34.85.150.149/login/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String : Any] = [
+            "email": email,
+            "password": password
+            
+        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, err in
             if let data = data {
                 do {
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(Session.self, from: data)
+                    let jsonString = String(data: data, encoding: .utf8)
+                    print("Raw JSON data: \(jsonString ?? "nil")")
                     
-                    completion(response.session_token)
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(SessionResponse.self, from: data)
+                    
+                    completion(response)
                 } catch (let error) {
                     print(error.localizedDescription)
                 }

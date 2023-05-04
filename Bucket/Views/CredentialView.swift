@@ -42,14 +42,26 @@ struct CredentialPage: View {
                         
                         TextField("Enter email", text: $email)
                             .foregroundColor(.secondary)
-                            .autocorrectionDisabled()
+                            .autocapitalization(.none)
+                            .textCase(.lowercase)
                         
                         SecureField("Enter password", text: $password)
                             .foregroundColor(.secondary)
-                            .autocorrectionDisabled()
+                            .autocapitalization(.none)
+                            .textCase(.lowercase)
                     
                         Button {
-                            isSignedIn.toggle()
+//                            isSignedIn.toggle()
+                            let email = email
+                            let password = password
+                            print("email is: \(email) and password is: \(password)")
+                            
+                            NetworkManager.shared.signIn(email: email, password: password) { token in
+                                DispatchQueue.main.async {
+                                    NetworkManager.session_token = token.session_token
+                                }
+                            }
+                            
                         } label: {
                             Text("Sign in")
                                 .padding(.top, 8)
