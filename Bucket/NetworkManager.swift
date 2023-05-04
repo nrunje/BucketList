@@ -39,7 +39,7 @@ class NetworkManager {
         task.resume()
     }
     
-    func signIn(email: String, password: String, completion: @escaping (SessionResponse) -> Void) {
+    func signIn(email: String, password: String, completion: @escaping (Result<SessionResponse, Error>) -> Void) {
         let url = URL(string: "http://34.85.150.149/login/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -55,18 +55,22 @@ class NetworkManager {
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, err in
-            if let data = data {
-                do {
-                    let jsonString = String(data: data, encoding: .utf8)
-                    print("Raw JSON data: \(jsonString ?? "nil")")
-                    
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(SessionResponse.self, from: data)
-                    
-                    completion(response)
-                } catch (let error) {
-                    print(error.localizedDescription)
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200, let data = data {
+                    do {
+                        let decoder = JSONDecoder()
+                        let response = try decoder.decode(SessionResponse.self, from: data)
+                        completion(.success(response))
+                    } catch (let error) {
+                        completion(.failure(error))
+                    }
+                } else if httpResponse.statusCode == 400 {
+                    completion(.failure(NSError(domain: "LoginError", code: 400, userInfo: [NSLocalizedDescriptionKey: "Incorrect email or password"])))
+                } else {
+                    completion(.failure(NSError(domain: "UnknownError", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "An unknown error occurred"])))
                 }
+            } else {
+                completion(.failure(NSError(domain: "NoResponseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No response from server"])))
             }
         }
         task.resume()

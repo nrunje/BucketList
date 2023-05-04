@@ -12,6 +12,7 @@ struct CredentialPage: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @Binding var isSignedIn: Bool
+    @State private var showingAlert = false
     
     var body: some View {
         ZStack {
@@ -56,15 +57,30 @@ struct CredentialPage: View {
                             let password = password
                             print("email is: \(email) and password is: \(password)")
                             
-                            NetworkManager.shared.signIn(email: email, password: password) { token in
+                            NetworkManager.shared.signIn(email: email, password: password) { result in
                                 DispatchQueue.main.async {
-                                    NetworkManager.session_token = token.session_token
+                                    switch result {
+                                    case .success(let token):
+                                        NetworkManager.session_token = token.session_token
+                                        isSignedIn.toggle()
+                                    case .failure(let error):
+                                        print(error.localizedDescription)
+                                        // Show a popup with the error message
+                                        DispatchQueue.main.async {
+                                            showingAlert = true
+                                        }
+                                    }
                                 }
                             }
                             
                         } label: {
                             Text("Sign in")
                                 .padding(.top, 8)
+                        }
+                        .alert(isPresented: $showingAlert) {
+                            Alert(title: Text("Incorrect email or password"),
+                                  message: Text("Please try again."),
+                                  dismissButton: .default(Text("OK")))
                         }
                     }
                     .frame(maxWidth: .infinity)
