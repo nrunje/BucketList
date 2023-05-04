@@ -13,6 +13,7 @@ struct CredentialPage: View {
     @State private var password: String = ""
     @Binding var isSignedIn: Bool
     @State private var showingAlert = false
+    @State private var isShowingCreateAccount = false
     
     var body: some View {
         ZStack {
@@ -91,9 +92,28 @@ struct CredentialPage: View {
                 .shadow(radius: 5)
             }
             .frame(width: UIScreen.main.bounds.width * 0.9, height: 300)
-        .padding()
+            .padding()
+            
+            VStack(alignment: .trailing) {
+                Spacer()
+                
+                Button {
+                    isShowingCreateAccount = true
+                } label: {
+                    Text("Create Account")
+                        .foregroundColor(Color.white)
+                }
+                .padding(.bottom, 15)
+            }
         }
+        .sheet(isPresented: $isShowingCreateAccount) {
+            CreateAccountView(isShowingView: $isShowingCreateAccount) // show CreateAccountView as a sheet
+        }
+        // End ZStack
     }
+    // End body
+    
+    
 }
 
 struct Blur: UIViewRepresentable {

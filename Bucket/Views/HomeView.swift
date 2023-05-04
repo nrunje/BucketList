@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var userBucketItems = [BucketItem]()
+    @State private var isLoading = true
     
     var body: some View {
         ScrollView {
@@ -23,9 +24,15 @@ struct HomeView: View {
                 .fontWeight(.bold)
                 .padding(.top, -70)
             
-            ForEach(userBucketItems) { item in
-                ItemCard(item: item)
-                ThreeDotsView()
+            if isLoading {
+                ProgressView()
+                    .scaleEffect(2)
+                    .padding(.top, 50)
+            } else {
+                ForEach(userBucketItems) { item in
+                    ItemCard(item: item)
+                    ThreeDotsView()
+                }
             }
             
         }
@@ -38,6 +45,7 @@ struct HomeView: View {
                 DispatchQueue.main.async {
                     userBucketItems = result.items
                     print("Loaded the user's individual buckets correctly")
+                    isLoading = false
                 }
             }
         }
