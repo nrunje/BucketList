@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var userBucketItems = [BucketItem]()
     
     var body: some View {
         ScrollView {
@@ -22,7 +23,7 @@ struct HomeView: View {
                 .fontWeight(.bold)
                 .padding(.top, -70)
             
-            ForEach(demoBucketItems) { item in
+            ForEach(userBucketItems) { item in
                 ItemCard(item: item)
                 ThreeDotsView()
             }
@@ -30,7 +31,18 @@ struct HomeView: View {
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
+        .onAppear {
+            let currToken = NetworkManager.session_token
+            
+            NetworkManager.shared.getUserItems(session_token: currToken) { result in
+                DispatchQueue.main.async {
+                    userBucketItems = result.items
+                    print("Loaded the user's individual buckets correctly")
+                }
+            }
+        }
     }
+    
 }
 
 struct ItemCard: View {

@@ -40,7 +40,7 @@ struct ActivitiesView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(demoBucketItems.filter { $0.is_experience == false }) { item in
+                        ForEach(bucketItems.filter { $0.is_experience == false }) { item in
                             ExperienceCard(item: item)
                                 .onTapGesture {
                                     selectedItem = item
@@ -63,7 +63,7 @@ struct ActivitiesView: View {
                 
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(demoBucketItems.filter { $0.is_experience == true }) { item in
+                        ForEach(bucketItems.filter { $0.is_experience == true }) { item in
                             ExperienceCard(item: item)
                                 .onTapGesture {
                                     selectedItem = item
@@ -94,6 +94,7 @@ struct ActivitiesView: View {
             NetworkManager.shared.getAllBucketItems { result in
                 DispatchQueue.main.async {
                     bucketItems = result.items
+                    print("Loaded items correctly")
                 }
             }
         }

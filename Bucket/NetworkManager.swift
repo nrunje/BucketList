@@ -22,6 +22,7 @@ class NetworkManager {
     
     static var session_token: String = ""
     
+    // Receive all bucket items for all users for use on Discovery page
     func getAllBucketItems(completion: @escaping (BucketItemsResponse) -> Void) {
         let url = URL(string: "http://34.85.150.149/items/")!
         var request = URLRequest(url: url)
@@ -46,6 +47,7 @@ class NetworkManager {
         task.resume()
     }
     
+    // Used to sign in and get the tokens in response
     func signIn(email: String, password: String, completion: @escaping (Result<SessionResponse, Error>) -> Void) {
         let url = URL(string: "http://34.85.150.149/login/")!
         var request = URLRequest(url: url)
@@ -78,6 +80,37 @@ class NetworkManager {
                 }
             } else {
                 completion(.failure(NSError(domain: "NoResponseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No response from server"])))
+            }
+        }
+        task.resume()
+    }
+    
+    // Get the user's individual items
+    func getUserItems(session_token: String, completion: @escaping (BucketItemsResponse) -> Void) {
+        let url = URL(string: "http://34.85.150.149/user/items/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        let setAuthHeader = "Bearer \(session_token)"
+        print(setAuthHeader)
+        
+        // Set authorization header
+        request.setValue(setAuthHeader, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, err in
+            if let data = data {
+                do {
+                    let jsonString = String(data: data, encoding: .utf8)
+                    print("Raw JSON data: \(jsonString ?? "nil")")
+                    
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(BucketItemsResponse.self, from: data)
+                    
+                    completion(response)
+                } catch (let error) {
+                    print(error.localizedDescription)
+                    print("This is where error is")
+                }
             }
         }
         task.resume()

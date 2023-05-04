@@ -51,7 +51,7 @@ struct BucketItemDetailView: View {
                     .fontWeight(.semibold)
                     .padding(.leading)
                 
-                Text(item.notes)
+                Text(item.note)
                     .padding([.leading, .horizontal])
                 
                 Group {
