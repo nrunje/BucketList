@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivitiesView: View {
     @State private var selectedItem: BucketItem? = nil
-//    @State private var bucketItems = [BucketItem]()
+    @State private var bucketItems = [BucketItem]()
     
     var body: some View {
         ScrollView {
@@ -84,8 +84,14 @@ struct ActivitiesView: View {
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
+        .onAppear (
+            
+        )
     }
+    
+    
 }
+
 
 struct ExperienceCard: View {
     
@@ -152,8 +158,8 @@ struct BucketItemRow: View {
     }
 }
 
-struct ActivitiesView_Previews: PreviewProvider {
-    static var previews: some View {
-        ActivitiesView()
-    }
-}
+//struct ActivitiesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ActivitiesView()
+//    }
+//}
