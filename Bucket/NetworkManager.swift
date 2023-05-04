@@ -13,12 +13,16 @@ struct SessionResponse: Codable {
     let update_token: String
 }
 
+struct BucketItemsResponse: Codable {
+    var items: [BucketItem]
+}
+
 class NetworkManager {
     static let shared = NetworkManager()
     
     static var session_token: String = ""
     
-    func getAllBucketItems(completion: @escaping ([BucketItem]) -> Void) {
+    func getAllBucketItems(completion: @escaping (BucketItemsResponse) -> Void) {
         let url = URL(string: "http://34.85.150.149/items/")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -26,10 +30,13 @@ class NetworkManager {
         let task = URLSession.shared.dataTask(with: request) { data, response, err in
             if let data = data {
                 do {
+                    let jsonString = String(data: data, encoding: .utf8)
+                    print("Raw JSON data: \(jsonString ?? "nil")")
+                    
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(BucketItemsResponse.self, from: data)
                     
-                    completion(response.items)
+                    completion(response)
                 } catch (let error) {
                     print(error.localizedDescription)
                     print("This is where error is")

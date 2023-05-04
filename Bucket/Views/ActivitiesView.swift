@@ -42,6 +42,9 @@ struct ActivitiesView: View {
                     HStack {
                         ForEach(demoBucketItems.filter { $0.is_experience == false }) { item in
                             ExperienceCard(item: item)
+                                .onTapGesture {
+                                    selectedItem = item
+                                }
                         }
                     }
                     .padding([.bottom, .leading,. trailing])
@@ -62,6 +65,9 @@ struct ActivitiesView: View {
                     HStack {
                         ForEach(demoBucketItems.filter { $0.is_experience == true }) { item in
                             ExperienceCard(item: item)
+                                .onTapGesture {
+                                    selectedItem = item
+                                }
                         }
                     }
                     .padding([.bottom, .leading,. trailing])
@@ -85,10 +91,9 @@ struct ActivitiesView: View {
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
         .onAppear {
-            NetworkManager.shared.getAllBucketItems { items in
+            NetworkManager.shared.getAllBucketItems { result in
                 DispatchQueue.main.async {
-                    bucketItems = items
-                    print("Items are: \(items)")
+                    bucketItems = result.items
                 }
             }
         }
@@ -163,8 +168,8 @@ struct BucketItemRow: View {
     }
 }
 
-//struct ActivitiesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ActivitiesView()
-//    }
-//}
+struct ActivitiesView_Previews: PreviewProvider {
+    static var previews: some View {
+        ActivitiesView()
+    }
+}

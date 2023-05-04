@@ -15,19 +15,16 @@ public enum ActivityType {
 let photoPlaceholder = "glacier"
 
 struct BucketItem: Codable, Identifiable {
-    var id: Int
-    var user_id: Int
-    var name: String
-    var location: String
-    var likes: Int
-    var date: String
-    var notes: String
-    var is_experience: Bool
+    let id: Int
+    let user_id: Int
+    let name: String
+    let location: String
+    let likes: Int
+    let date: String
+    let notes: String
+    let is_experience: Bool
 }
 
-struct BucketItemsResponse: Codable {
-    var items: [BucketItem]
-}
 
 var myBucketList: [BucketItem] = []
 
