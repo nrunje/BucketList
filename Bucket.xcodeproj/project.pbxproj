@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		821161BA2A031D0C00BFCBE7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821161B92A031D0C00BFCBE7 /* NetworkManager.swift */; };
 		821161BE2A04038700BFCBE7 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821161BD2A04038700BFCBE7 /* CreateAccountView.swift */; };
+		821161C22A0578FC00BFCBE7 /* CreateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821161C12A0578FC00BFCBE7 /* CreateItemView.swift */; };
 		822F43252A017BFC00363F48 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F43242A017BFC00363F48 /* ProfileView.swift */; };
 		825536752A01AE4B002300E7 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825536742A01AE4B002300E7 /* Profile.swift */; };
 		825536792A01D608002300E7 /* CredentialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825536782A01D608002300E7 /* CredentialView.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		821161B92A031D0C00BFCBE7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		821161BD2A04038700BFCBE7 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		821161C12A0578FC00BFCBE7 /* CreateItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemView.swift; sourceTree = "<group>"; };
 		822F43242A017BFC00363F48 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		825536742A01AE4B002300E7 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		825536782A01D608002300E7 /* CredentialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				822F43242A017BFC00363F48 /* ProfileView.swift */,
 				825536782A01D608002300E7 /* CredentialView.swift */,
 				821161BD2A04038700BFCBE7 /* CreateAccountView.swift */,
+				821161C12A0578FC00BFCBE7 /* CreateItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				825536752A01AE4B002300E7 /* Profile.swift in Sources */,
 				822F43252A017BFC00363F48 /* ProfileView.swift in Sources */,
 				827DD9CA29FC43CC00BB3784 /* BucketItemDetailView.swift in Sources */,
+				821161C22A0578FC00BFCBE7 /* CreateItemView.swift in Sources */,
 				827DD9C329F8AB1D00BB3784 /* MyBucketView.swift in Sources */,
 				821161BE2A04038700BFCBE7 /* CreateAccountView.swift in Sources */,
 				827DD9B429F8A61800BB3784 /* ContentView.swift in Sources */,

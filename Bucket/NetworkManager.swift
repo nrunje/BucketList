@@ -165,4 +165,80 @@ class NetworkManager {
         task.resume()
     }
     
+    // TEMPORARY
+    func shortenYearInDateString(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "MM/dd/yy"
+            let shortenedDateString = dateFormatter.string(from: date)
+            return shortenedDateString
+        } else {
+            return nil
+        }
+    }
+    // /////////////
+    
+    func createMessage(item: BucketItem, session_token: String, completion: @escaping (BucketItem) -> Void) {
+        let url = URL(string: "http://34.85.150.149/user/items/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let setAuthHeader = "Bearer \(session_token)"
+        print(setAuthHeader)
+        
+        // Set authorization header
+        request.setValue(setAuthHeader, forHTTPHeaderField: "Authorization")
+        print(item.date)
+        
+        var tempDate: String
+        if let result = shortenYearInDateString("05/13/2023") {
+            tempDate = result
+            print(tempDate) // Output: "05/13/23"
+        } else {
+            tempDate = "01/01/00"
+        }
+        
+        // Set body
+        let body: [String : Any] = [
+            "name": item.name,
+            "location": item.location,
+            "date": tempDate,
+            "note": item.note,
+            "photo": "",
+            "is_experience": item.is_experience
+        ]
+        
+        
+//        let body: [String: Any] = [
+//            "name": "Visit the Alamo",
+//            "location": "San Antonio",
+//            "date": "08/15/23",
+//            "note": "Go to the heart of Texas war!",
+//            "photo": "",
+//            "is_experience": false
+//        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, err in
+            if let data = data {
+                do {
+                    let jsonString = String(data: data, encoding: .utf8)
+                    print("Raw JSON data: \(jsonString ?? "nil")")
+                    
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(BucketItem.self, from: data)
+                    
+                    completion(response)
+                } catch (let error) {
+                    print(error.localizedDescription)
+                    print("This is where error is")
+                }
+            }
+        }
+        task.resume()
+    }
 }

@@ -84,6 +84,17 @@ struct ActivitiesView: View {
                 .foregroundColor(Color.white)
                 .background(Color.blue.opacity(0.8))
             
+            Button(action: {
+                print("Create Item button tapped")
+            }) {
+                Text("Create Item")
+                    .font(.system(size: 20, weight: .semibold, design: .default))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.blue))
+            }
+            .padding()
+            
         }
         .sheet(item: $selectedItem) { item in
             BucketItemDetailView(item: item)

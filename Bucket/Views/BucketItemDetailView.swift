@@ -26,6 +26,11 @@ struct BucketItemDetailView: View {
                     .fontWeight(.semibold)
                     .padding()
                 
+                Text("Added by: \(item.user)")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .padding(.leading, 15)
+                
                 HStack {
                     Text(item.location)
                         .font(.system(size: 20))
@@ -56,9 +61,14 @@ struct BucketItemDetailView: View {
                 
                 Group {
                     Button(action: {
-                        myBucketList.append(item)
+                        print("Starting create item")
+                        let currToken = NetworkManager.session_token
                         
-                        print("My BucketList is: \(myBucketList)")
+                        NetworkManager.shared.createMessage(item: item, session_token: currToken) { result in
+                            DispatchQueue.main.async {
+                                print("Created item")
+                            }
+                        }
                     }) {
                         Text("Add to My BucketList")
                             .foregroundColor(.white)
