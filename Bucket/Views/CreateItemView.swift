@@ -103,13 +103,14 @@ struct CreateItemView: View {
                             let currBucket = BucketItem(id: 0, user: "placeholder", name: name, location: location, likes: 0, date: formattedDate, note: note, photo: Photo(id: 0, base_url: "", created_at: "", item_id: 0), is_experience: is_experience)
                             let currToken = NetworkManager.session_token
                             
-                            NetworkManager.shared.createMessage(item: currBucket, session_token: currToken) { response in
+                            NetworkManager.shared.createItemScratch(item: currBucket, session_token: currToken, photo: selectedImage) { response in
                                 DispatchQueue.main.async {
                                     print("Created item within create view")
                                     isShowingView = false
                                 }
                             }
                             
+//                            print("Selected image is below:")
 //                            print(selectedImage)
                         } label: {
                             Text("Create")

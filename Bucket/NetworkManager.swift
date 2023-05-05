@@ -180,6 +180,62 @@ class NetworkManager {
     }
     // /////////////
     
+    
+    func createItemScratch(item: BucketItem, session_token: String, photo: String, completion: @escaping (BucketItem) -> Void) {
+        let url = URL(string: "http://34.85.150.149/user/items/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let setAuthHeader = "Bearer \(session_token)"
+        print(setAuthHeader)
+        
+        // Set authorization header
+        request.setValue(setAuthHeader, forHTTPHeaderField: "Authorization")
+        print(item.date)
+        
+        var tempDate: String
+        if let result = shortenYearInDateString(item.date) {
+            tempDate = result
+            print(tempDate) // Output: "05/13/23"
+        } else {
+            tempDate = "01/01/00"
+        }
+        
+        print("The photo is below:")
+        
+        // Set body
+        let body: [String : Any] = [
+            "name": item.name,
+            "location": item.location,
+            "date": tempDate,
+            "note": item.note,
+            "photo": photo,
+            "is_experience": item.is_experience
+        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, err in
+            if let data = data {
+                do {
+                    let jsonString = String(data: data, encoding: .utf8)
+                    print("Raw JSON data: \(jsonString ?? "nil")")
+                    
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(BucketItem.self, from: data)
+                    
+                    completion(response)
+                } catch (let error) {
+                    print(error.localizedDescription)
+                    print("This is where error is")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    // Creates an item for pre-existing items
     func createMessage(item: BucketItem, session_token: String, completion: @escaping (BucketItem) -> Void) {
         let url = URL(string: "http://34.85.150.149/user/items/")!
         var request = URLRequest(url: url)
