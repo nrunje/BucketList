@@ -10,6 +10,7 @@ import SwiftUI
 struct ActivitiesView: View {
     @State private var selectedItem: BucketItem? = nil
     @State private var bucketItems = [BucketItem]()
+    @State private var isCreateItemViewPresented = false
     
     var body: some View {
         ScrollView {
@@ -86,6 +87,7 @@ struct ActivitiesView: View {
             
             Button(action: {
                 print("Create Item button tapped")
+                isCreateItemViewPresented = true
             }) {
                 Text("Create Item")
                     .font(.system(size: 20, weight: .semibold, design: .default))
@@ -94,7 +96,9 @@ struct ActivitiesView: View {
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.blue))
             }
             .padding()
-            
+            .sheet(isPresented: $isCreateItemViewPresented) {
+                CreateItemView(isShowingView: $isCreateItemViewPresented)
+            }
         }
         .sheet(item: $selectedItem) { item in
             BucketItemDetailView(item: item)

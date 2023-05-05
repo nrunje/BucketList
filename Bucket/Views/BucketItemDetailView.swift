@@ -30,6 +30,7 @@ struct BucketItemDetailView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .padding(.leading, 15)
+                    .padding(.top, -15)
                 
                 HStack {
                     Text(item.location)
