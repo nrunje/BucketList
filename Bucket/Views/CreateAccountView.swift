@@ -10,6 +10,9 @@ import SwiftUI
 struct CreateAccountView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var name: String = ""
+    @State private var birth_year: String = ""
+    
     @Binding var isShowingView: Bool
     @State private var showAlert: Bool = false
     @State private var alertTitle: String = ""
@@ -34,9 +37,27 @@ struct CreateAccountView: View {
                             .foregroundColor(.secondary)
                             .autocapitalization(.none)
                             .textCase(.lowercase)
+                        
+                        TextField("Enter your name", text: $name)
+                            .foregroundColor(.secondary)
+                            .autocapitalization(.none)
+                            .textCase(.lowercase)
+                        
+                        TextField("Year of birth", text: $birth_year)
+                            .foregroundColor(.secondary)
+                            .autocapitalization(.none)
+                            .textCase(.lowercase)
                     
                         Button {
-                            NetworkManager.shared.createAccount(email: email, password: password) { response in
+                            // Ensure birth_year is an integer before calling network manager
+                            guard let birth_year = Int(birth_year) else {
+                                alertTitle = "Error"
+                                alertMessage = "Year of birth must be a number"
+                                showAlert = true
+                                return
+                            }
+                            
+                            NetworkManager.shared.createAccount(email: email, password: password, name: name, birth_year: birth_year) { response in
                                 DispatchQueue.main.async {
                                     switch response {
                                     case .success(_):

@@ -11,7 +11,7 @@ struct CredentialPage: View {
     @State private var offsetX: CGFloat = 0
     @State private var email: String = ""
     @State private var password: String = ""
-    @Binding var isSignedIn: Bool
+    @EnvironmentObject var appEnvironment: AppEnvironment
     @State private var showingAlert = false
     @State private var isShowingCreateAccount = false
     
@@ -63,7 +63,10 @@ struct CredentialPage: View {
                                     switch result {
                                     case .success(let token):
                                         NetworkManager.session_token = token.session_token
-                                        isSignedIn.toggle()
+                                        NetworkManager.name = token.name
+                                        NetworkManager.birth_year = token.birth_year
+                                        
+                                        appEnvironment.signedIn = true
                                     case .failure(let error):
                                         print(error.localizedDescription)
                                         // Show a popup with the error message
@@ -128,7 +131,7 @@ struct Blur: UIViewRepresentable {
 
 struct CredentialPage_Previews: PreviewProvider {
     static var previews: some View {
-        CredentialPage(isSignedIn: .constant(false))
+        CredentialPage()
     }
 }
 

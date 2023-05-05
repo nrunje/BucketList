@@ -11,7 +11,7 @@ import MapKit
 struct BucketItemDetailView: View {
     
     let item: BucketItem
-    @State private var searchText: String = "Austin"
+    @State private var searchText: String = ""
     
     var body: some View {
         ScrollView {
@@ -70,6 +70,7 @@ struct BucketItemDetailView: View {
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width)
+                .padding(.top, 20)
 //                .background(Color.red)
                 
             }
@@ -77,6 +78,9 @@ struct BucketItemDetailView: View {
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area
+        .onAppear {
+            searchText = item.location
+        }
     }
 }
 

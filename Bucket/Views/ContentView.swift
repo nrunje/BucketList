@@ -7,18 +7,23 @@
 
 import SwiftUI
 
+class AppEnvironment: ObservableObject {
+    @Published var signedIn: Bool = false
+}
+
 struct ContentView: View {
-    @State private var signedIn = false
+    @StateObject var appEnvironment = AppEnvironment()
     
     var body: some View {
         Group {
-            if signedIn {
+            if appEnvironment.signedIn {
                 MainView()
             } else {
-                CredentialPage(isSignedIn: $signedIn)
+                CredentialPage()
             }
         }
-        .animation(.easeInOut(duration: 0.5), value: signedIn)
+        .animation(.easeInOut(duration: 0.5), value: appEnvironment.signedIn)
+        .environmentObject(appEnvironment)
     }
 }
 

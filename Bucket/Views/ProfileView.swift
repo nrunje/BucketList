@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var isEditing = false
-    @State private var name = "John Adams"
-    @State private var birthYear = 2000
+    @State private var name = NetworkManager.name
+    @State private var birthYear = NetworkManager.birth_year
+    @EnvironmentObject var appEnvironment: AppEnvironment
     
     var body: some View {
         NavigationView {
@@ -57,11 +58,17 @@ struct ProfileView: View {
                 
             }
             .navigationTitle("Profile")
-            .navigationBarItems(trailing: Button(action: {
-                isEditing.toggle()
-            }, label: {
-                Text("Edit")
-            }))
+            .navigationBarItems(
+                trailing: Button(action: {
+                    appEnvironment.signedIn = false
+                }, label: {
+                    Text("Logout")
+                })
+            )
+            .onAppear {
+//                name = NetworkManager.name
+//                Vk
+            }
         }
         
     }

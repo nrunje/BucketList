@@ -19,7 +19,7 @@ struct MainView: View {
             ActivitiesView()
                 .tabItem {
                     Image(systemName: "pencil")
-                    Text("Activities")
+                    Text("Discover")
                 }
             
             ProfileView()

@@ -11,6 +11,8 @@ struct SessionResponse: Codable {
     let session_token: String
     let session_expiration: String
     let update_token: String
+    let name: String
+    let birth_year: Int
 }
 
 struct BucketItemsResponse: Codable {
@@ -21,6 +23,8 @@ class NetworkManager {
     static let shared = NetworkManager()
     
     static var session_token: String = ""
+    static var name: String = ""
+    static var birth_year: Int = 0
     
     // Receive all bucket items for all users for use on Discovery page
     func getAllBucketItems(completion: @escaping (BucketItemsResponse) -> Void) {
@@ -86,7 +90,7 @@ class NetworkManager {
     }
     
     // Create account and get proper responser body
-    func createAccount(email: String, password: String, completion: @escaping (Result<SessionResponse, Error>) -> Void) {
+    func createAccount(email: String, password: String, name: String, birth_year: Int, completion: @escaping (Result<SessionResponse, Error>) -> Void) {
         let url = URL(string: "http://34.85.150.149/register/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -95,8 +99,9 @@ class NetworkManager {
         
         let body: [String : Any] = [
             "email": email,
-            "password": password
-            
+            "password": password,
+            "name": name,
+            "birth_year": birth_year
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
