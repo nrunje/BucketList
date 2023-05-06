@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var userBucketItems = [BucketItem]()
     @State private var isLoading = true
+    @State private var selectedItem: BucketItem? = nil
     
     var body: some View {
         ScrollView {
@@ -31,10 +32,18 @@ struct HomeView: View {
             } else {
                 ForEach(userBucketItems) { item in
                     ItemCard(item: item)
+                        .onTapGesture {
+                            selectedItem = item
+                        }
+                        
                     ThreeDotsView()
+                    
                 }
             }
             
+        }
+        .sheet(item: $selectedItem) { item in
+            BucketHomeView(item: item)
         }
         .padding(.zero) // set padding to zero to remove any spacing around the ScrollView
         .edgesIgnoringSafeArea(.top) // ignore top safe area

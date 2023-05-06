@@ -8,16 +8,10 @@
 import SwiftUI
 import MapKit
 
-struct BucketItemDetailView: View {
+struct BucketHomeView: View {
     
     let item: BucketItem
     @State private var searchText: String = ""
-    
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
-        return formatter
-    }
     
     var body: some View {
         ScrollView {
@@ -27,11 +21,12 @@ struct BucketItemDetailView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width, height: 200)
                     .clipped()
+//                    .padding(.bottom, 15)
 
                 Text(item.name)
                     .font(.largeTitle)
                     .fontWeight(.semibold)
-                    .padding()
+                    .padding([.bottom, .leading, .trailing])
                 
                 Text("Added by: \(item.user)")
                     .font(.subheadline)
@@ -67,39 +62,6 @@ struct BucketItemDetailView: View {
                 Text(item.note)
                     .padding([.leading, .horizontal])
                 
-                Group {
-                    Button(action: {
-//                        let formattedDate = dateFormatter.string(from: item.date)
-//                            print(formattedDate) // Output will be in "MM/dd/yyyy" format
-                            
-//                        let currBucket = BucketItem(id: 0, user: "placeholder", name: item.name, location: item.location, likes: 0, date: formattedDate, note: item.note, photo: Photo(id: 0, base_url: "", created_at: "", item_id: 0), is_experience: item.is_experience)
-//                        let currToken = NetworkManager.session_token
-                        
-//                        let selectedImage = item.photo.
-                        
-//                        NetworkManager.shared.createItemScratch(item: currBucket, session_token: currToken, photo: selectedImage) { response in
-//                            DispatchQueue.main.async {
-//                                print("Created item within create view")
-//                            }
-//                        }
-                            
-//                            print("Selected image is below:")
-//                            print(selectedImage)
-                        }
-                    ) {
-                        Text("Add to My BucketList")
-                            .foregroundColor(.white)
-                            .font(.headline)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 24)
-                            .background(Color.blue)
-                            .cornerRadius(8)
-                    }
-                }
-                .frame(width: UIScreen.main.bounds.width)
-                .padding(.top, 20)
-//                .background(Color.red)
-                
             }
             .padding([.bottom], 200)
         }
@@ -111,14 +73,14 @@ struct BucketItemDetailView: View {
     }
 }
 
-struct BucketItemDetailView_Previews: PreviewProvider {
+struct BucketHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        BucketItemDetailView(item: demoBucketItems[0])
+        BucketHomeView(item: demoBucketItems[0])
     }
 }
 
 
-struct MapView: UIViewRepresentable {
+struct MapViewHome: UIViewRepresentable {
     @Binding var searchText: String
     
     func makeUIView(context: Context) -> MKMapView {
@@ -147,15 +109,16 @@ struct MapView: UIViewRepresentable {
         }
     }
     
-    func makeCoordinator() -> MapViewCoordinator {
-        return MapViewCoordinator()
+    func makeCoordinator() -> BucketMapViewCoordinator {
+        return BucketMapViewCoordinator()
     }
 }
 
-class MapViewCoordinator: NSObject, MKMapViewDelegate {
+class BucketMapViewCoordinator: NSObject, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "customView")
         annotationView.canShowCallout = true
         return annotationView
     }
 }
+
