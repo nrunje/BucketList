@@ -126,10 +126,10 @@ struct ExperienceCard: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Image(photoPlaceholder)
-                .resizable()
+            RemoteImage(urlString: item.photo.base_url) // replace placeholder image with RemoteImage
+//                .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(height: 200)
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 200)
                 .clipped()
             
             VStack(alignment: .leading, spacing: 8) {
@@ -161,11 +161,12 @@ struct BucketItemRow: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Image(photoPlaceholder)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(maxWidth: .infinity)
-            
+            RemoteImage(urlString: item.photo.base_url) // replace placeholder image with RemoteImage
+//                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 100)
+                .clipped()
+
             HStack {
                 Text(item.name)
                     .font(.system(size: 26))
