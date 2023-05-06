@@ -202,7 +202,8 @@ class NetworkManager {
             tempDate = "01/01/00"
         }
         
-        print("The photo is below:")
+        print("The photo string is below:")
+        print(photo)
         
         // Set body
         let body: [String : Any] = [

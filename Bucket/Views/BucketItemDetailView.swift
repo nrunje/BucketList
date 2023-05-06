@@ -13,6 +13,12 @@ struct BucketItemDetailView: View {
     let item: BucketItem
     @State private var searchText: String = ""
     
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -62,15 +68,24 @@ struct BucketItemDetailView: View {
                 
                 Group {
                     Button(action: {
-                        print("Starting create item")
-                        let currToken = NetworkManager.session_token
+//                        let formattedDate = dateFormatter.string(from: item.date)
+//                            print(formattedDate) // Output will be in "MM/dd/yyyy" format
+                            
+//                        let currBucket = BucketItem(id: 0, user: "placeholder", name: item.name, location: item.location, likes: 0, date: formattedDate, note: item.note, photo: Photo(id: 0, base_url: "", created_at: "", item_id: 0), is_experience: item.is_experience)
+//                        let currToken = NetworkManager.session_token
                         
-                        NetworkManager.shared.createMessage(item: item, session_token: currToken) { result in
-                            DispatchQueue.main.async {
-                                print("Created item")
-                            }
+//                        let selectedImage = item.photo.
+                        
+//                        NetworkManager.shared.createItemScratch(item: currBucket, session_token: currToken, photo: selectedImage) { response in
+//                            DispatchQueue.main.async {
+//                                print("Created item within create view")
+//                            }
+//                        }
+                            
+//                            print("Selected image is below:")
+//                            print(selectedImage)
                         }
-                    }) {
+                    ) {
                         Text("Add to My BucketList")
                             .foregroundColor(.white)
                             .font(.headline)

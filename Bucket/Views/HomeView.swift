@@ -60,10 +60,10 @@ struct ItemCard: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Image(photoPlaceholder)
-                .resizable()
+            RemoteImage(urlString: item.photo.base_url) // replace placeholder image with RemoteImage
+//                .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(height: 200)
+                .frame(width: UIScreen.main.bounds.width * 0.9, height: 200)
                 .clipped()
             
             VStack(alignment: .leading, spacing: 8) {
@@ -87,6 +87,22 @@ struct ItemCard: View {
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
+    }
+}
+
+struct RemoteImage: View {
+    let urlString: String
+    
+    var body: some View {
+        Group {
+            if let url = URL(string: urlString), let imageData = try? Data(contentsOf: url), let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+            } else {
+                Image(systemName: "photo") // fallback image
+                    .resizable()
+            }
+        }
     }
 }
 

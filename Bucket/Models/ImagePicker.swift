@@ -35,9 +35,9 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let uiImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
-                let imageData = uiImage.pngData() {
+                let imageData = uiImage.jpegData(compressionQuality: 0.5) { // Adjust the compression quality (0.5 in this case)
                     let base64String = imageData.base64EncodedString(options: .lineLength64Characters)
-                    selectedImage = "data:image/png;base64," + base64String
+                    selectedImage = "data:image/jpeg;base64," + base64String
             }
             isPresented = false
         }
@@ -47,3 +47,5 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
+
+
