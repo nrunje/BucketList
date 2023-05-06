@@ -12,6 +12,8 @@ struct BucketItemDetailView: View {
     
     let item: BucketItem
     @State private var searchText: String = ""
+    @State private var base64Image: String = ""
+    
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -19,10 +21,30 @@ struct BucketItemDetailView: View {
         return formatter
     }
     
+    func convertDateFormat(_ dateString: String) -> String {
+        let endIndex = dateString.index(dateString.endIndex, offsetBy: -4)
+        let firstPart = String(dateString[..<endIndex])
+        let yearLastTwoDigits = String(dateString.suffix(2))
+        let shortenedDateString = firstPart + yearLastTwoDigits
+        return shortenedDateString
+    }
+    
+    func addImageFormatPrefix(base64Image: String) -> String {
+        let sanitizedBase64Image = base64Image.replacingOccurrences(of: "\n", with: "")
+        
+        if sanitizedBase64Image.hasPrefix("/9j/") {
+            return "data:image/jpeg;base64," + sanitizedBase64Image
+        } else if sanitizedBase64Image.hasPrefix("iVBORw0K") {
+            return "data:image/png;base64," + sanitizedBase64Image
+        } else {
+            return sanitizedBase64Image // fallback, might want to handle this case differently
+        }
+    }
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                RemoteImage(urlString: item.photo.base_url)
+                RemoteImageCreate(urlString: item.photo.base_url, base64Image: $base64Image)
 //                    .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width, height: 200)
@@ -67,38 +89,42 @@ struct BucketItemDetailView: View {
                 Text(item.note)
                     .padding([.leading, .horizontal])
                 
-                Group {
-                    Button(action: {
-//                        let formattedDate = dateFormatter.string(from: item.date)
-//                            print(formattedDate) // Output will be in "MM/dd/yyyy" format
-                            
+//                Group {
+//                    Button(action: {
+//                        let formattedDate: String = convertDateFormat(item.date)
+//                        print(item.date)
+//                        print(formattedDate) // Output will be in "MM/dd/yyyy" format
+//
 //                        let currBucket = BucketItem(id: 0, user: "placeholder", name: item.name, location: item.location, likes: 0, date: formattedDate, note: item.note, photo: Photo(id: 0, base_url: "", created_at: "", item_id: 0), is_experience: item.is_experience)
 //                        let currToken = NetworkManager.session_token
-                        
-//                        let selectedImage = item.photo.
-                        
-//                        NetworkManager.shared.createItemScratch(item: currBucket, session_token: currToken, photo: selectedImage) { response in
+//
+//                        let selectedImage = base64Image
+//
+//                        let fullSelectedImage = addImageFormatPrefix(base64Image: selectedImage)
+//
+//                        print("About to start networking requestion. ")
+//                        print("Base64 image is:")
+//                        print(fullSelectedImage)
+//                        NetworkManager.shared.createItemScratch(item: currBucket, session_token: currToken) { response in
 //                            DispatchQueue.main.async {
 //                                print("Created item within create view")
 //                            }
 //                        }
-                            
-//                            print("Selected image is below:")
-//                            print(selectedImage)
-                        }
-                    ) {
-                        Text("Add to My BucketList")
-                            .foregroundColor(.white)
-                            .font(.headline)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 24)
-                            .background(Color.blue)
-                            .cornerRadius(8)
-                    }
-                }
-                .frame(width: UIScreen.main.bounds.width)
-                .padding(.top, 20)
-//                .background(Color.red)
+//
+//                        }
+//                    ) {
+//                        Text("Add to My BucketList")
+//                            .foregroundColor(.white)
+//                            .font(.headline)
+//                            .padding(.vertical, 12)
+//                            .padding(.horizontal, 24)
+//                            .background(Color.blue)
+//                            .cornerRadius(8)
+//                    }
+//                }
+//                .frame(width: UIScreen.main.bounds.width)
+//                .padding(.top, 20)
+////                .background(Color.red)
                 
             }
             .padding([.bottom], 200)
@@ -107,6 +133,26 @@ struct BucketItemDetailView: View {
         .edgesIgnoringSafeArea(.top) // ignore top safe area
         .onAppear {
             searchText = item.location
+        }
+    }
+}
+
+struct RemoteImageCreate: View {
+    let urlString: String
+    @Binding var base64Image: String
+    
+    var body: some View {
+        Group {
+            if let url = URL(string: urlString), let imageData = try? Data(contentsOf: url), let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .onAppear {
+                        base64Image = uiImage.pngData()?.base64EncodedString() ?? ""
+                    }
+            } else {
+                Image(systemName: "photo") // fallback image
+                    .resizable()
+            }
         }
     }
 }
